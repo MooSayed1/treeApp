@@ -11,12 +11,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val txt = findViewById<TextView>(R.id.textView)
+        txt.setOnClickListener {
+            startActivity(Intent(this, singUp::class.java))
+            finish()
+        }
+
         var user = findViewById<TextInputEditText>(R.id.user)
         var password = findViewById<TextInputEditText>(R.id.password)
-        val txt = findViewById<TextView>(R.id.textView)
         val btn = findViewById<Button>(R.id.signup)
         btn.setOnClickListener {
-            if (user.text!!.isBlank() || user.length() < 4) {
+            if (user.text!!.isBlank() ) {
                 user.error = "User Name not less than 4 letters"
             }
 
@@ -24,17 +30,13 @@ class MainActivity : AppCompatActivity() {
                 password.error = "please enter valid password"
             }
 
-            if (user.text!!.isBlank() && password.text!!.isBlank()) {
+           // if (user.text!!.isBlank() && password.text!!.isBlank()) {
                 btn.setOnClickListener {
                     startActivity(Intent(this, feed::class.java))
-                }
+            //    }
             }
 
 
-            txt.setOnClickListener {
-                startActivity(Intent(this, singUp::class.java))
-                finish()
-            }
         }
     }
 }

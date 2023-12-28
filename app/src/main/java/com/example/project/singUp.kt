@@ -12,6 +12,11 @@ class singUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_up)
 
+        val txt =findViewById<TextView>(R.id.textView)
+        txt.setOnClickListener {
+            startActivity(Intent(this,MainActivity::class.java))
+            //finish()
+        }
         var user = findViewById<TextInputEditText>(R.id.username)
         var password = findViewById<TextInputEditText>(R.id.password)
         val loginkey = findViewById<Button>(R.id.signup)
@@ -27,18 +32,13 @@ class singUp : AppCompatActivity() {
             if (password.text!!.isBlank()) {
                 password.error = "please enter valid password"
             }
-            if(user.text!!.isBlank()&&email.text!!.isBlank()&&password.text!!.isBlank())
-            {
+            //if(user.text!!.isBlank()&&email.text!!.isBlank()&&password.text!!.isBlank())
+            //{
                 loginkey.setOnClickListener {
                     startActivity(Intent(this,feed::class.java))
-                }
+             //   }
             }
         }
 
-        val txt =findViewById<TextView>(R.id.textView)
-        txt.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
-            //finish()
-        }
     }
 }

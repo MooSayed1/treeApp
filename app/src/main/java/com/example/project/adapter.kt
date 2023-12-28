@@ -16,7 +16,7 @@ class adapter(val list: ArrayList<Post>, val context: Context) :
         val name = item.findViewById<TextView>(R.id.email)
         val username = item.findViewById<TextView>(R.id.username)
         val likes = item.findViewById<TextView>(R.id.likes)
-        val comments = item.findViewById<TextView>(R.id.comments)
+        //val comments = item.findViewById<TextView>(R.id.comments)
         val content = item.findViewById<TextView>(R.id.content)
         val image = item.findViewById<ImageView>(R.id.image)
 
