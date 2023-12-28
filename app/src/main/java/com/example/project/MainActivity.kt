@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity() {
                 password.error = "please enter valid password"
             }
 
-           // if (user.text!!.isBlank() && password.text!!.isBlank()) {
-                btn.setOnClickListener {
+            if (!(user.text!!.isBlank() && password.text!!.isBlank())) {
                     startActivity(Intent(this, feed::class.java))
-            //    }
             }
 
 

@@ -18,25 +18,25 @@ class singUp : AppCompatActivity() {
             //finish()
         }
         var user = findViewById<TextInputEditText>(R.id.username)
-        var password = findViewById<TextInputEditText>(R.id.password)
+        var password: TextInputEditText = findViewById<TextInputEditText>(R.id.password)
         val loginkey = findViewById<Button>(R.id.signup)
         loginkey.setOnClickListener {
 
             if (user.text!!.isBlank()) {
-                user.error = "User Name not less than 4 letters"
+                user.error = "please enter a valid user name"
             }
-            var email =  findViewById<TextInputEditText>(R.id.email)
+            val email = this.findViewById<TextInputEditText>(R.id.email)
             if(email.text!!.isBlank()){
-               email.error ="plead enter a valid email"
+               email.error ="please enter a valid email"
            }
             if (password.text!!.isBlank()) {
                 password.error = "please enter valid password"
             }
-            //if(user.text!!.isBlank()&&email.text!!.isBlank()&&password.text!!.isBlank())
-            //{
-                loginkey.setOnClickListener {
+            if(!(user.text!!.isBlank()&&email.text!!.isBlank()&&password.text!!.isBlank()))
+            {
+                //loginkey.setOnClickListener {
                     startActivity(Intent(this,feed::class.java))
-             //   }
+               //}
             }
         }
 
