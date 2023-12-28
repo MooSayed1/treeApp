@@ -1,0 +1,30 @@
+{
+  "posts": {
+    "post": [
+      {
+        "id": 1,
+        "Profile": "Mohamed Elsayed",
+        "Content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis voluptatem veritatis harum, tenetur, quibusdam voluptatum, incidunt saepe minus maiores ea atque sequi illo veniam sint quaerat corporis totam et. Culpa?",
+        "photo": "https://jsonformatter.org/img/tom-cruise.jpg",
+        "likes":67,
+        "views":100
+      },
+      {
+        "id": 2,
+        "Profile": "Ezz",
+        "Content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis voluptatem veritatis harum, tenetur, quibusdam voluptatum, incidunt saepe minus maiores ea atque sequi illo veniam sint quaerat corporis totam et. Culpa?",
+        "photo": "None",
+        "likes":7,
+        "views":10
+      },           {
+        "id": 3,
+        "Profile": "garabawy",
+        "Content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis voluptatem veritatis harum, tenetur, quibusdam voluptatum, incidunt saepe minus maiores ea atque sequi illo veniam sint quaerat corporis totam et. Culpa?",
+        "photo": "None",
+        "likes":70,
+        "views":79
+      }
+
+    ]
+  }
+}

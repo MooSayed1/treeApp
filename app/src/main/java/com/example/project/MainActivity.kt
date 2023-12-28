@@ -27,10 +27,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
         txt.setOnClickListener {
             startActivity(Intent(this,singUp::class.java))
+            finish()
         }
     }
 }

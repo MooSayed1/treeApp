@@ -31,6 +31,7 @@ class singUp : AppCompatActivity() {
         val txt =findViewById<TextView>(R.id.textView)
         txt.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
 }
