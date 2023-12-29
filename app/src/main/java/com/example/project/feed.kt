@@ -29,7 +29,7 @@ class feed : AppCompatActivity() {
     lateinit var recycler: RecyclerView
     lateinit var client: OkHttpClient
 
-    @SuppressLint("SuspiciousIndentation")
+    @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
@@ -55,8 +55,10 @@ class feed : AppCompatActivity() {
                 } catch (e: Exception) {
                     // Handle errors gracefully
                     withContext(Dispatchers.Main) {
+
                         // Display an error message to the user
                         swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
+
                     }
                 }
             }
@@ -76,6 +78,7 @@ class feed : AppCompatActivity() {
             override fun onFailure(call: Call, e: IOException) {
                 Log.d("DATATAG", e.message.toString())
             }
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
                 val jsonfile = JSONObject(body).getJSONArray("Posts")
@@ -89,6 +92,7 @@ class feed : AppCompatActivity() {
                     val Handle = data.getString("Handle")
                     val Date = data.getInt("Date")
                     val id = data.getInt("id")
+                    list.clear()
                     tempList.add(Post(views, id, Content, User_Name, Handle, likes, Photo, Date))
                 }
 
