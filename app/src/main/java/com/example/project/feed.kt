@@ -1,72 +1,103 @@
 package com.example.project
 
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.json.JSONObject
 import java.io.IOException
+import kotlin.math.log
 
 class feed : AppCompatActivity() {
     lateinit var list: ArrayList<Post>
     lateinit var adapter: adapter
     lateinit var recycler: RecyclerView
+    lateinit var client: OkHttpClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
-        getDate()
+        client= OkHttpClient()
 
         list = ArrayList()
-
-        list.apply {
-            add(
-                Post(
-                    id=1 , views = 2 , Content = "Hello i'm mohamed", age = 20, username = "Mohamed", handel = "#lmalsdj123", likes = 90,
-                    image = "https://i.pinimg.com/474x/27/03/12/270312b769ec73b030b1abd98a7209ef.jpg"
-                )
-            )
-
-            add(
-                Post(
-                    id=1 , views = 2 , Content = "Fuck microsoft", age = 20, username = "Ezz", handel = "@saldf21", likes = 88,
-                    image = "https://i.pinimg.com/474x/27/03/12/270312b769ec73b030b1abd98a7209ef.jpg"
-                )
-            )
-            add(
-                Post(
-                    id=1 , views = 2 , Content = "welcome to our fk app", age = 20, username = "ghrapawy", handel = "ljska", likes = 73,
-                    image = "https://i.pinimg.com/474x/27/03/12/270312b769ec73b030b1abd98a7209ef.jpg"
-                )
-            )
-        }
-
         adapter = adapter(list,this)
         recycler = findViewById(R.id.recycler)
         recycler.adapter = adapter
+        lifecycleScope.launch (Dispatchers.IO){ getData() }
+        val swipeRefreshLayout:SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+                swipeRefreshLayout.setOnRefreshListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val newData = getData() // Fetch new data
+                    withContext(Dispatchers.Main) {
+                        // Update UI elements with the new data
+                        getData()
+                        adapter.notifyDataSetChanged()
+                        swipeRefreshLayout.isRefreshing=false
+                    }
+                } catch (e: Exception) {
+                    // Handle errors gracefully
+                    withContext(Dispatchers.Main) {
+                        // Display an error message to the user
+                        swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
+                    }
+                }
+            }
+        }
 
 
     }
-    fun getDate(){
-       val url="http://json.almiraj.xyz/jsonProfile/GH"
-        val request=Request.Builder().url(url).build()
-        val client=OkHttpClient()
-        client.newCall(request).enqueue(object : Callback{
+    fun getData() {
+        val tempList = ArrayList<Post>() // Temporary list to store data
+
+        var link = "http://json.almiraj.xyz/jsonfeed"
+        val request = Request.Builder()
+            .url(link)
+            .get()
+            .build()
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-
-                println("faliiiieeddd")
+                Log.d("DATATAG", e.message.toString())
             }
-
             override fun onResponse(call: Call, response: Response) {
-                val responsebody= response.body?.string()
-                println(responsebody)
+                val body = response.body?.string()
+                val jsonfile = JSONObject(body).getJSONArray("Posts")
+                for (x in 0 until jsonfile.length()) {
+                    val data = jsonfile.getJSONObject(x)
+                    val views = data.getInt("views")
+                    val Photo = data.getString("Photo")
+                    val Content = data.getString("Content")
+                    val likes = data.getInt("likes")
+                    val User_Name = data.getString("User_Name")
+                    val Handle = data.getString("Handle")
+                    val Date = data.getInt("Date")
+                    val id = data.getInt("id")
+                    tempList.add(Post(views, id, Content, User_Name, Handle, likes, Photo, Date))
+                }
+
+                // Update UI on the main thread
+                lifecycleScope.launch (Dispatchers.Main){
+                    list.addAll(tempList)
+                    adapter.notifyDataSetChanged()
+                }
+
             }
 
         })
+        Log.d("DATATAG", list.toString())
     }
 }

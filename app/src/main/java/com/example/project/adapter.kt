@@ -9,14 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import okhttp3.internal.notify
 
-class adapter(val list: ArrayList<Post>, val context: Context) :
+class adapter(var list: ArrayList<Post>, val context: Context) :
     RecyclerView.Adapter<adapter.viewholder>() {
     class viewholder(item: View) : RecyclerView.ViewHolder(item) {
-        val name = item.findViewById<TextView>(R.id.email)
-        val username = item.findViewById<TextView>(R.id.username)
+        val name = item.findViewById<TextView>(R.id.username)
+        val handel = item.findViewById<TextView>(R.id.handel)
         val likes = item.findViewById<TextView>(R.id.likes)
-        //val comments = item.findViewById<TextView>(R.id.comments)
+        val shares = item.findViewById<TextView>(R.id.shares)
         val content = item.findViewById<TextView>(R.id.content)
         val image = item.findViewById<ImageView>(R.id.image)
 
@@ -32,14 +33,20 @@ class adapter(val list: ArrayList<Post>, val context: Context) :
     override fun onBindViewHolder(holder: viewholder, position: Int) {
         val position = list.get(position)
         holder.apply {
-            Glide.with(context).load(position.image).into(image)
-            name.text = position.username
-            username.text = position.handel
+//            Glide.with(context).load(position.Photo).into(image)
+            shares.text = position.views.toString()
+            name.text = position.User_Name
+            handel.text = position.Handle
             content.text = position.Content
             likes.text = position.likes.toString()
+
         }
         holder.itemView.setOnClickListener {
             Toast.makeText(context,"hello",Toast.LENGTH_SHORT).show()
         }
+    }
+    fun refreshData(newList: ArrayList<Post>){
+        list=newList
+        notifyDataSetChanged()
     }
 }
