@@ -1,6 +1,5 @@
 package com.example.project
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,34 +7,35 @@ import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 
+@Suppress("NAME_SHADOWING")
 class singUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_up)
 
-        var islogend:Boolean=false
-        val sharedPref = getSharedPreferences("myPreferences", MODE_PRIVATE)
-        islogend=sharedPref.getBoolean("islogend",false)
+      //  var islogend:Boolean=false
+      //  val sharedPref = getSharedPreferences("myPreferences", MODE_PRIVATE)
+      //  islogend=sharedPref.getBoolean("islogend",false)
 
-        if(islogend) {
-            startActivity(Intent(this, feed::class.java))
-            finish()
-        }
+      //  if(islogend) {
+      //      startActivity(Intent(this, feed::class.java))
+      //      finish()
+      //  }
 
         val txt =findViewById<TextView>(R.id.textView)
         txt.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
             //finish()
         }
-        var user = findViewById<TextInputEditText>(R.id.handel)
-        var password: TextInputEditText = findViewById<TextInputEditText>(R.id.password)
+        var user = findViewById<TextInputEditText>(R.id.item_handel)
+        var password: TextInputEditText = findViewById(R.id.password)
         val loginkey = findViewById<Button>(R.id.signup)
         loginkey.setOnClickListener {
 
             if (user.text!!.isBlank()) {
                 user.error = "please enter a valid user name"
             }
-            val email = this.findViewById<TextInputEditText>(R.id.username)
+            val email = this.findViewById<TextInputEditText>(R.id.itemusername)
             if(email.text!!.isBlank()){
                email.error ="please enter a valid email"
            }
@@ -45,10 +45,10 @@ class singUp : AppCompatActivity() {
             if(!(user.text!!.isBlank()&&email.text!!.isBlank()&&password.text!!.isBlank()))
             {
 
-                val sharedPref = getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putBoolean("islogend", true) // Example for a string value
-                editor.apply() // Apply changes asynchronously
+      //              val sharedPref = getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+      //              val editor = sharedPref.edit()
+      //              editor.putBoolean("islogend", true) // Example for a string value
+      //              editor.apply() // Apply changes asynchronously
 
                startActivity(Intent(this,feed::class.java))
             }

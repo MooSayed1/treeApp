@@ -13,14 +13,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var islogend:Boolean=false
-        val sharedPref = getSharedPreferences("myPreferences", MODE_PRIVATE)
-        islogend=sharedPref.getBoolean("islogend",false)
+      //  var islogend:Boolean=false
+      //  val sharedPref = getSharedPreferences("myPreferences", MODE_PRIVATE)
+      //  islogend=sharedPref.getBoolean("islogend",false)
 
-        if(islogend) {
-            startActivity(Intent(this, feed::class.java))
-            finish()
-        }
+      //  if(islogend) {
+      //      startActivity(Intent(this, feed::class.java))
+      //      finish()
+      //  }
         val txt = findViewById<TextView>(R.id.textView)
         txt.setOnClickListener {
             startActivity(Intent(this, singUp::class.java))
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
 
             if (!(user.text!!.isBlank() && password.text!!.isBlank())) {
 
-                val sharedPref = getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putBoolean("islogend", true) // Example for a string value
-                editor.apply() // Apply changes asynchronously
+              //  val sharedPref = getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+              //  val editor = sharedPref.edit()
+              //  editor.putBoolean("islogend", true) // Example for a string value
+              //  editor.apply() // Apply changes asynchronously
 
                 startActivity(Intent(this, feed::class.java))
                 finish()

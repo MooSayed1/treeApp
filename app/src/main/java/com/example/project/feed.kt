@@ -42,7 +42,7 @@ class feed : AppCompatActivity() {
         lifecycleScope.launch (Dispatchers.IO){ getData() }
         val swipeRefreshLayout:SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
-                swipeRefreshLayout.setOnRefreshListener {
+        swipeRefreshLayout.setOnRefreshListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     //val newData = getData() // Fetch new data
@@ -63,7 +63,6 @@ class feed : AppCompatActivity() {
                 }
             }
         }
-
 
     }
     fun getData() {
@@ -96,15 +95,16 @@ class feed : AppCompatActivity() {
                     tempList.add(Post(views, id, Content, User_Name, Handle, likes, Photo, Date))
                 }
 
+
                 // Update UI on the main thread
                 lifecycleScope.launch (Dispatchers.Main){
                     list.addAll(tempList)
                     adapter.notifyDataSetChanged()
+                    Log.d("ListTag", list.toString())
                 }
 
             }
 
         })
-        Log.d("DATATAG", list.toString())
     }
 }
