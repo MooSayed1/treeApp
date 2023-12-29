@@ -63,7 +63,6 @@ class feed : AppCompatActivity() {
                 }
             }
         }
-
     }
     fun getData() {
         val tempList = ArrayList<Post>() // Temporary list to store data
