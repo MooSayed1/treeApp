@@ -1,6 +1,7 @@
 package com.example.project
 
 
+import android.annotation.SuppressLint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,7 @@ class feed : AppCompatActivity() {
     lateinit var recycler: RecyclerView
     lateinit var client: OkHttpClient
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
