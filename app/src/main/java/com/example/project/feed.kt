@@ -2,6 +2,7 @@ package com.example.project
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AppCompatActivity
@@ -44,7 +45,7 @@ class feed : AppCompatActivity() {
                 swipeRefreshLayout.setOnRefreshListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
-                    val newData = getData() // Fetch new data
+                    //val newData = getData() // Fetch new data
                     withContext(Dispatchers.Main) {
                         // Update UI elements with the new data
                         getData()
